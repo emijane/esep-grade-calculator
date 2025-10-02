@@ -11,7 +11,7 @@ cd esep-grade-calculator/grade-calculator
 
 Run unit tests:
 ```
-cd grade_calculator/
+cd grade-calculator/
 go test ./...
 ```
 
