@@ -1,8 +1,16 @@
 package esepunittests
 
 type GradeCalculator struct {
-	grades []Grade
+	grades     []Grade
+	evaluation Evaluation
 }
+
+type Evaluation int
+
+const (
+	Letter Evaluation = iota
+	PassFail
+)
 
 type GradeType int
 
@@ -28,8 +36,12 @@ type Grade struct {
 	Type  GradeType
 }
 
-func NewGradeCalculator() *GradeCalculator {
-	return &GradeCalculator{grades: make([]Grade, 0)}
+func NewGradeCalculator(evaluations ...Evaluation) *GradeCalculator {
+	evaluation := Letter
+	if len(evaluations) > 0 {
+		evaluation = evaluations[0]
+	}
+	return &GradeCalculator{grades: make([]Grade, 0), evaluation: evaluation}
 }
 
 func (gc *GradeCalculator) GetFinalGrade() string {
