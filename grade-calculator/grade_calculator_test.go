@@ -49,3 +49,36 @@ func TestGetGradeF(t *testing.T) {
 		t.Errorf("Expected GetGrade to return '%s'; got '%s' instead", expected_value, actual_value)
 	}
 }
+
+func TestGetGradeC(t *testing.T) {
+	gc := NewGradeCalculator()
+	gc.AddGrade("assignment", 70, Assignment)
+	gc.AddGrade("exam", 70, Exam)
+	gc.AddGrade("essay", 70, Essay)
+	if got := gc.GetFinalGrade(); got != "C" {
+		t.Errorf("Expected C; got %s", got)
+	}
+}
+
+func TestGetGradeD(t *testing.T) {
+	gc := NewGradeCalculator()
+	gc.AddGrade("assignment", 60, Assignment)
+	gc.AddGrade("exam", 60, Exam)
+	gc.AddGrade("essay", 60, Essay)
+	if got := gc.GetFinalGrade(); got != "D" {
+		t.Errorf("Expected D; got %s", got)
+	}
+}
+
+func TestGradeTypeString(t *testing.T) {
+	for _, tc := range []struct {
+		kind GradeType
+		want string
+	}{
+		{Assignment, "assignment"}, {Exam, "exam"}, {Essay, "essay"},
+	} {
+		if got := tc.kind.String(); got != tc.want {
+			t.Errorf("Expected %s; got %s", tc.want, got)
+		}
+	}
+}
